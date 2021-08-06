@@ -1,52 +1,27 @@
 from django.test import TestCase
-from rango.models import Comment, Category
+from rango.models import Comment, Category, Page
+from populate_rango import populate
+from django.urls import reverse
 from django.contrib.auth.models import User
 
-
 # Create your tests here.
-# class ModelsTests(TestCase):
-#     def test_ensure_views_are_positive(self):
-#         """
-#         Ensures the number of views received for a Category are positive or zero.
-#         """
-#
-#     category = Category(name='test', views=-1, likes=0)
-#     category.save()
-#
-#
-#     def test_ensure_add_comments(self):
-#         user = User(username='test2')
-#         user.save()
-#         category = Category(name='test')
-#         category.save()
-#         comment = Comment(category=category, username=user.username,content='This is test for comments')
-#         comment.save()
-#
-#         print('test2 performed')
-#         self.assertEqual(comment.username, 'test2')
-
 
 class ModelTests(TestCase):
 
-    def setEnvironment(self):
+    def setUp(self):
         try:
             from populate_rango import populate
             populate()
-            print('set success')
-            for category in Category.objects.all(self):
-                print(category.name)
         except ImportError:
             print('The module populate_rango does not exist')
         except NameError:
             print('The function populate() does not exist or is not correct')
-        except:
-            print('Unknown error!')
 
     def get_category(self, name):
 
         from rango.models import Category
         try:
-            self.setEnvironment()
+            self.setUp()
             cat = Category.objects.get(name=name)
             print('success')
         except Category.DoesNotExist:
@@ -54,22 +29,71 @@ class ModelTests(TestCase):
             print('fail')
         return cat
 
-    def test_python_category_added(self):
-        self.setEnvironment()
+    def test_category_added(self):
         cat = self.get_category('Python')
         self.assertIsNotNone(cat)
 
-    def test_python_category_views(self):
-        self.setEnvironment()
+    def test_category_views(self):
         cat = self.get_category('Python')
         self.assertEquals(cat.views, 128)
 
-    def test_python_category_likes(self):
-        self.setEnvironment()
+    def test_category_likes(self):
         cat = self.get_category('Python')
         self.assertEquals(cat.likes, 64)
-    def test_python_category_comments(self):
-        self.setEnvironment()
+
+    def test_category_comments(self):
         cat = self.get_category('Python')
         comment = cat.comment_set.count()
         self.assertEquals(comment, 2)
+    def test_slug_name_work(self):
+        category = Category(name="test for slug")
+        category.save()
+        self.assertEquals(category.slug, 'test-for-slug')
+
+class ViewTests(TestCase):
+    def setUp(self):
+        populate()
+
+
+    def test_Index_View(self):
+        self.response = self.client.get(reverse('rango:index'))
+        self.content = self.response.content.decode()
+
+        self.assertIn('Rango says ...', self.content)
+        self.assertTemplateUsed(self.response, 'rango/index.html')
+        self.assertIn(b'img src="/static/images/rango.jpg', self.response.content)
+        self.assertIn(b'<title>', self.response.content)
+        self.assertIn(b'</title>', self.response.content)
+
+    def test_About_View(self):
+        self.response = self.client.get(reverse('rango:about'))
+        self.content = self.response.content.decode()
+
+        self.assertIn(b'img src="/media/cat.jpg', self.response.content)
+        self.assertTemplateUsed(self.response, 'rango/about.html')
+
+class FuncTests(TestCase):
+    def setUp(self):
+        populate()
+        user = User.objects.create_user(username='testbot', email='test@test.com', password='abcabcabc123')
+        user.save()
+
+    def test_add_category_work(self):
+        content = self.client.get(reverse('rango:index')).content.decode()
+
+        self.assertTrue(reverse('rango:add_category') not in content)
+
+        self.client.login(username='testbot', password='abcabcabc123')
+        content = self.client.get(reverse('rango:index')).content.decode()
+
+        self.assertTrue(reverse('rango:add_category') in content)
+
+        self.client.post(reverse('rango:add_category'),
+                         {'name': 'tests', 'views': 10, 'likes': 2})
+
+        categories = Category.objects.filter(name='tests')
+        self.assertEqual(len(categories), 1)
+
+
+
+
