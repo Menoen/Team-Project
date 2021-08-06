@@ -17,6 +17,14 @@
     {% if category %}
     <section class="content-head">
         <h1>{{ category.name }}</h1>
+        <div>
+            <strong id="like_count">{{ category.likes }}</strong> people like this category
+            {% if user.is_authenticated %}
+            <button id="likes" data-catid="{{category.catname}}" class="button button-blue" type="button">
+                LIKE!
+            </button>
+            {% endif %}
+        </div>
     </section>
     {% if pages %}
     <ul class="list">
@@ -35,19 +43,14 @@
     <strong class="placeholder">No pages currently in category.</strong>
     {% endif %}
 
-    {% if user.is_authenticated %}
-    <a href="{% url 'rango:add_page' category.slug %}" class="button button-green">Add Page</a> <br />
-    {% endif %}
 
     {% if user.is_authenticated %}
     <div>
-        <form class="form-inline" id="user-form" method="post" action="{% url 'rango:show_category' category.slug %}">
+        <form id="user-form" method="post" action="{% url 'rango:show_category' category.slug %}">
             {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" type="text" size="50" name="query" id="query" value="{{ query }}"/>
-        </div>
-    
-        <button class="btn btn-primary" type="submit" name="submit">Search</button>
+            <input class="inline-top" type="text" size="50" name="query" id="query" value="{{ query }}"/>
+            <button class="button button-blue inline-top" type="submit" name="submit">Search</button>
+            <a href="{% url 'rango:add_page' category.slug %}" class="button button-green inline-top">Add Page</a> <br />
         </form>
     </div>
     <div>

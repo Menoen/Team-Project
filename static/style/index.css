@@ -23,3 +23,6 @@
 .block li a {
   display: block;
 }
+.block li:hover {
+  text-decoration: underline;
+}

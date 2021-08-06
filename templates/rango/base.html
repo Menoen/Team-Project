@@ -23,27 +23,27 @@
         <div class="main">
             <nav class="header">
                 <ul>
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'rango:index' %}">Home</a></li>
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'rango:about' %}">About</a></li>
+                    <li><a class="nav-link"  href="{% url 'rango:index' %}">Home</a></li>
+                    <li><a class="nav-link"  href="{% url 'rango:about' %}">About</a></li>
                     {% if user.is_authenticated %}
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'rango:restricted' %}">Restricted</a></li>
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'auth_logout' %}?next=/rango/">Logout</a></li>
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'rango:add_category' %}">Add Category</a></li>
+                    <li><a class="nav-link"  href="{% url 'rango:restricted' %}">Restricted</a></li>
+                    <li><a class="nav-link"  href="{% url 'auth_logout' %}?next=/rango/">Logout</a></li>
+                    <li><a class="nav-link"  href="{% url 'rango:add_category' %}">Add Category</a></li>
 {#                    <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>#}
 {#                    <li class="nav-item"><a class="nav-link" href="{% url 'rango:profile' user.username %}">Profile</a></li>#}
 {#                    <li class="nav-item"><a class="nav-link" href="{% url 'rango:list_profiles' %}">List Profiles</a></li>#}
                     {% else %}
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'registration_register' %}">Register Here</a></li>
-                    <li><a class="nav-link" style="width: 5%" href="{% url 'auth_login' %}">Login</a></li>
+                    <li><a class="nav-link"  href="{% url 'registration_register' %}">Register Here</a></li>
+                    <li><a class="nav-link"  href="{% url 'auth_login' %}">Login</a></li>
                     {% endif %}
                 </ul>
             </nav>
             <div class="app">
                 <aside>
                     <div>
-                        <div id="sidebar" style="width:20%;float: left">
+                        <div id="sidebar">
                            <div>
-                              <input type="search" id="search-input" class="form-control ds-input" placeholder="Search..." />
+                              <input type="search" id="search-input" class="ds-input" placeholder="Search..." />
                            </div>
            
                             <div class="sidebar-sticky" id="categories-listing">

@@ -15,5 +15,6 @@ urlpatterns = [
     # path('search/', views.search, name='search'),
     path('category/<slug:category_name_slug>/add_comment/', views.add_comment, name='add_comment'),
     path('suggest/', views.CategorySuggestionView.as_view(), name='suggest'),
-    url(r'^goto/$', views.track_url, name='goto')
+    url(r'^goto/$', views.track_url, name='goto'),
+    url(r'^like/$', views.like_category, name='like_category'),
 ]

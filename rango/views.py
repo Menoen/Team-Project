@@ -261,3 +261,17 @@ def track_url(request):
     except:
         pass
     return redirect(url)
+
+@login_required
+def like_category(request):
+    categoryName = None
+    if request.method == 'GET':
+        categoryName = request.GET['category_name']
+        likes = 0
+        if categoryName:
+            category = Category.objects.get(id = int(categoryName))
+            if category:
+                likes = category.likes +1
+                category.likes = likes
+                category.save()
+    return HttpResponse(likes)

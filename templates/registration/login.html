@@ -5,15 +5,20 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Login</h1>
-
+<section class="content-head">
+    <h1>Login</h1>
+</section>
 <form method="post" action=".">
     {% csrf_token %}
 
-    {{ form.as_p }}
-
-    <input type="submit" value="Log In" />
-    <input type="submit" name="next" value="{{ next }}" />
+    <!-- {{ form.as_p }} -->
+    <div class="fieldWrapper">
+        <label for="username">Username</label> <input type="text" id="username" name="username" value="" size="50" />
+    </div>
+    <div class="fieldWrapper">
+        <label for="password">Password</label> <input id="password" type="password" name="password" value="" size="50" />
+    </div>
+    <button type="submit" value="Log In" class="button button-blue">Log In</button>
 </form>
 
 <p>

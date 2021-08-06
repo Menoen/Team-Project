@@ -25,10 +25,19 @@
 .list li {
   padding: 5px 0;
 }
+.list li:hover {
+  text-decoration: underline;
+}
 .content {
   width: 100%;
 }
 .content > p {
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+.inline-top {
+  display: inline;
+  margin-top: 0;
+  margin-right: 20px;
+  vertical-align: middle;
 }
