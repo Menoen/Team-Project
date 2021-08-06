@@ -5,12 +5,11 @@
 @greenBtn: #34c2af;
 
 .comment-ul {
-  margin-top: 20px;
-  width: 70%;
+  margin: 30px 0 0 20px;
   overflow: revert;
 }
 .comment-li {
-  padding-top: 10px;
+  width: 70%;
   img {
     border-radius: 50%;
     border: 1px solid;
@@ -20,18 +19,27 @@
     text-align: center;
   }
   .content {
-    margin: 10px 0 0 40px;
-    padding: 10px;
-    border: 1px solid @blkColor;
+    padding: 10px 0 0 40px;
+    box-sizing: border-box;
+    >p {
+      padding: 10px;
+      border: 1px solid @blkColor;
+    }
   }
 }
 .list {
-  margin: 10px 0;
+  margin: 10px 0 0 20px;
   li {
     padding: 5px 0;
   }
   li:hover {
     text-decoration: underline;
+  }
+}
+#comment_form, #user-form {
+  margin: 10px 0 0 20px;
+  textarea {
+    width: 70%;
   }
 }
 .content{
@@ -44,6 +52,13 @@
 .inline-top {
   display: inline;
   margin-top: 0;
-  margin-right: 20px;
+  margin-right: 5px;
   vertical-align: middle;
+}
+.query{
+  width: 70%;
+  box-sizing: border-box;
+}
+.content-head button {
+  margin-top: 0;
 }

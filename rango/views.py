@@ -40,19 +40,20 @@ def about(request):
 
 def show_category(request, category_name_slug):
     context_dict = {}
-    username = request.user.username
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category).order_by('-views')
-        comment = Comment.objects.filter(category=category).order_by('timesmp')
+        comment = Comment.objects.filter(category=category).order_by('-timesmp')
         context_dict['pages'] = pages
         context_dict['category'] = category
-        context_dict['comments'] = comment
         # comment form
         form = CommentForm()
         context_dict['form'] = form
-        path = Path(settings.MEDIA_ROOT+'/profile_images/'+username+'.jpg')
-        context_dict['pic_exist'] = path.exists()
+        for c in comment:
+            print(c.username)
+            path = Path(settings.MEDIA_ROOT+'/profile_images/'+c.username+'.jpg')
+            c.pic_exist = path.exists()
+        context_dict['comments'] = comment
 
     except Category.DoesNotExist:
         context_dict['pages'] = None
@@ -214,7 +215,7 @@ def add_comment(request,category_name_slug):
                 if request.user.is_authenticated:
                     comment.username = request.user.username
                 else:
-                    comment.username = "UnknownUser"
+                    comment.username = "Anonymous"
                 comment.save()
                 return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
         else:

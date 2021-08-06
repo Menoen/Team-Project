@@ -3,7 +3,7 @@
 
 {% block title_block %}
     {% if category %}
-        {{ categoty.name }}
+        {{ category.name }}
     {% else %}
         Unknown Category
     {% endif %}
@@ -26,6 +26,19 @@
             {% endif %}
         </div>
     </section>
+
+
+    <div>
+        <form id="user-form" method="post" action="{% url 'rango:show_category' category.slug %}">
+            {% csrf_token %}
+            <input class="inline-top query" type="text" size="50" name="query" id="query" value="{{ query }}"/>
+            <button class="button button-blue inline-top" type="submit" name="submit">Search</button>
+            {% if user.is_authenticated %}
+            <a href="{% url 'rango:add_page' category.slug %}" class="button button-green inline-top">Add Page</a> <br />
+            {% endif %}
+        </form>
+    </div>
+    
     {% if pages %}
     <ul class="list">
         {% for page in pages %}
@@ -42,17 +55,6 @@
     {% else %}
     <strong class="placeholder">No pages currently in category.</strong>
     {% endif %}
-
-
-    {% if user.is_authenticated %}
-    <div>
-        <form id="user-form" method="post" action="{% url 'rango:show_category' category.slug %}">
-            {% csrf_token %}
-            <input class="inline-top" type="text" size="50" name="query" id="query" value="{{ query }}"/>
-            <button class="button button-blue inline-top" type="submit" name="submit">Search</button>
-            <a href="{% url 'rango:add_page' category.slug %}" class="button button-green inline-top">Add Page</a> <br />
-        </form>
-    </div>
     <div>
         {% if result_list %}
         <h2>Results</h2>
@@ -72,7 +74,6 @@
         </div>
         {% endif %}
     </div>
-    {% endif %}
 
     {% else %}
         <p class="placeholder">The specified category does not exist.</p>
@@ -95,10 +96,10 @@
             {% for comment in comments %}
             <li class="comment-li">
                 <p>
-                    {% if pic_exist %}
+                    {% if comment.pic_exist %}
                     <img src="{{ MEDIA_URL }}profile_images/{{ comment.username }}.jpg"" height="30" width="30" alt="Picture of user">
                     {% else %}
-                    <img src="{{ MEDIA_URL }}profile_images/UnknownUser.jpg"" height="30" width="30" alt="Picture of user">
+                    <img src="{{ MEDIA_URL }}profile_images/Anonymous.jpg"" height="30" width="30" alt="Picture of user">
                     {% endif %}
                     <span class="username">{{ comment.username }}</span>
                     <span class="timesmp">{{ comment.timesmp }}</span>

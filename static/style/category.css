@@ -1,10 +1,9 @@
 .comment-ul {
-  margin-top: 20px;
-  width: 70%;
+  margin: 30px 0 0 20px;
   overflow: revert;
 }
 .comment-li {
-  padding-top: 10px;
+  width: 70%;
 }
 .comment-li img {
   border-radius: 50%;
@@ -15,18 +14,29 @@
   text-align: center;
 }
 .comment-li .content {
-  margin: 10px 0 0 40px;
+  padding: 10px 0 0 40px;
+  box-sizing: border-box;
+}
+.comment-li .content > p {
   padding: 10px;
   border: 1px solid #555;
 }
 .list {
-  margin: 10px 0;
+  margin: 10px 0 0 20px;
 }
 .list li {
   padding: 5px 0;
 }
 .list li:hover {
   text-decoration: underline;
+}
+#comment_form,
+#user-form {
+  margin: 10px 0 0 20px;
+}
+#comment_form textarea,
+#user-form textarea {
+  width: 70%;
 }
 .content {
   width: 100%;
@@ -38,6 +48,13 @@
 .inline-top {
   display: inline;
   margin-top: 0;
-  margin-right: 20px;
+  margin-right: 5px;
   vertical-align: middle;
+}
+.query {
+  width: 70%;
+  box-sizing: border-box;
+}
+.content-head button {
+  margin-top: 0;
 }

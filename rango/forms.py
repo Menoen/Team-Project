@@ -48,7 +48,7 @@ class UserProfileForm(forms.ModelForm):
         fields = ('website', 'picture',)
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(max_length=2000,widget=forms.Textarea(attrs={'rows': 5,'cols': 40}))
+    content = forms.CharField(max_length=2000,widget=forms.Textarea(attrs={'rows': 5,'cols': 80}))
     class Meta:
         model = Comment
         fields = ('content',)
