@@ -162,12 +162,12 @@ def track_url(request):
 
 @login_required
 def like_category(request):
-    categoryId = None
+    categoryName = None
     if request.method == 'GET':
-        categoryId = request.GET['category_id']
+        categoryName = request.GET['category_name']
         likes = 0
-        if categoryId:
-            category = Category.objects.get(id = int(categoryId))
+        if categoryName:
+            category = Category.objects.get(name=str(categoryName))
             if category:
                 likes = category.likes +1
                 category.likes = likes
