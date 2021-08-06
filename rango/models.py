@@ -23,11 +23,23 @@ class Category(models.Model):
         return self.name
 
 class Page(models.Model):
+    cleaned_data = {}
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
-
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+        # If url is not empty and doesn't start with 'http://',
+        # then prepend 'http://'.
+        if url and not url.startswith('http://'):
+            url = f'http://{url}'
+            cleaned_data['url']=url
+        if url and not url.endswith('/'):
+            url = f'{url}/'
+            cleaned_data['url']=url
+        return cleaned_data
     def __str__(self):
         return self.title
 
