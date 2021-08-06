@@ -1,5 +1,6 @@
+from django.utils import timezone
 from django import forms
-from rango.models import Page, Category
+from rango.models import Comment, Page, Category
 from django.contrib.auth.models import User
 from rango.models import UserProfile
 
@@ -45,3 +46,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture',)
+
+class CommentForm(forms.ModelForm):
+    content = forms.CharField(max_length=2000)
+    class Meta:
+        model = Comment
+        fields = ('content',)

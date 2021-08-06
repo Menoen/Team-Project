@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category
 from rango.models import Page
-from rango.forms import CategoryForm
+from rango.models import Comment
+from rango.forms import CategoryForm, CommentForm
 from django.shortcuts import redirect
 from rango.forms import PageForm
 from django.urls import reverse
@@ -11,6 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
+from django.conf import settings
 
 
 def index(request):
@@ -35,16 +37,22 @@ def about(request):
 
 def show_category(request, category_name_slug):
     context_dict = {}
-
+    username = None
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category)
+        comment = Comment.objects.filter(category=category).order_by('timesmp')
         context_dict['pages'] = pages
         context_dict['category'] = category
+        context_dict['comments'] = comment
+        # comment form
+        form = CommentForm()
+        context_dict['form'] = form
 
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
+        context_dict['comments'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
 
@@ -117,8 +125,6 @@ def register(request):
                                                              'profile_form': profile_form,
                                                              'registered': registered})
 
-
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -138,11 +144,9 @@ def user_login(request):
     else:
         return render(request, 'rango/login.html')
 
-
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html')
-
 
 @login_required
 def user_logout(request):
@@ -167,3 +171,33 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
 
     request.session['visits'] = visits
+
+
+def add_comment(request,category_name_slug):
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        category = None
+
+    if category is None:
+        return redirect(reverse('rango:index'))
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            print('valid')
+            if category:
+                comment = form.save(commit=False)
+                comment.category = category
+                print(request)
+                if request.user.is_authenticated:
+                    comment.username = request.user.username
+                else:
+                    comment.username = "UnknownUser"
+                comment.save()
+                return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
+        else:
+            print('not valid')
+            print(form.errors)
+    
+    show_category(request,category_name_slug)

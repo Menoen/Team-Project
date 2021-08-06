@@ -28,4 +28,36 @@
     {% else %}
         The specified category does not exist.
     {% endif %}
+    <div>
+        <div>
+            <form id="comment_form" method="post" action="{% url 'rango:add_comment' category.slug %}">
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <!-- <input type="textarea" name="content" value=""  cols="50" rows="5"/> -->
+                <input id="commentCommit" type="submit" value="submit" />
+            </form>
+        </div>
+        {% if comments %}
+        <ul>
+            {% for comment in comments %}
+            <li>
+                <p>
+                    <img src="{{ MEDIA_URL }}{{ comment.username }}.jpg"" height="30" width="30" alt="Picture of user">
+                    <span>{{ comment.username }}</span>
+                    <span>{{ comment.timesmp }}</span>
+                </p>
+                <div>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            The comment does not exist.
+        {% endif %}
+    </div>
 {% endblock %}
