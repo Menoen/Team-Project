@@ -46,7 +46,7 @@
             {% for comment in comments %}
             <li>
                 <p>
-                    <img src="{{ MEDIA_URL }}{{ comment.username }}.jpg"" height="30" width="30" alt="Picture of user">
+                    <img src="{{ MEDIA_URL }}profile_images/{{ comment.username }}.jpg"" height="30" width="30" alt="Picture of user">
                     <span>{{ comment.username }}</span>
                     <span>{{ comment.timesmp }}</span>
                 </p>
