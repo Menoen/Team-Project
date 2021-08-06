@@ -13,5 +13,6 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('restricted/', views.restricted, name='restricted'),
     path('suggest/', views.CategorySuggestionView.as_view(), name='suggest'),
-    url(r'^goto/$', views.track_url, name='goto')
+    url(r'^goto/$', views.track_url, name='goto'),
+    url(r'^like/$', views.like_category, name='like_category'),
 ]
