@@ -1,0 +1,25 @@
+.fieldWrapper label {
+  display: block;
+}
+.flex-box {
+  display: flex;
+  margin-top: 10px;
+}
+.block {
+  border: 1px solid #aaa;
+  flex: 1;
+  margin-right: 10px;
+  min-height: 120px;
+  min-width: 200px;
+  padding: 10px;
+}
+.block h2 {
+  margin-bottom: 10px;
+}
+.block li {
+  border: 1px solid #aaa;
+  padding: 5px;
+}
+.block li a {
+  display: block;
+}

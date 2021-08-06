@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Add a Page to {{ category.name }}</h1>
+<section class="content-head">
+    <h1>Add a Page to {{ category.name }}</h1>
+</section>
 <div>
     <form id="add_page_form" method="post" action="{% url 'rango:add_page' category.slug %}">
         {% csrf_token %}
@@ -19,7 +21,7 @@
             {{ field.help_text }}
             {{ field }}
         {% endfor %}
-        <input type="submit" name="submit" value="Add Page" />
+        <button type="submit" name="submit" value="Add Page" class="button button-blue">Add Page</button>
     </form>
 </div>
 {% endblock %}
