@@ -1,0 +1,27 @@
+.comment-ul {
+  margin-top: 20px;
+  width: 70%;
+  overflow: revert;
+}
+.comment-li {
+  padding-top: 10px;
+}
+.comment-li img {
+  border-radius: 50%;
+  border: 1px solid;
+}
+.comment-li .username {
+  padding: 0 5px;
+  text-align: center;
+}
+.comment-li .content {
+  margin: 10px 0 0 40px;
+  padding: 10px;
+  border: 1px solid #555;
+}
+.list {
+  margin: 10px 0;
+}
+.list li {
+  padding: 5px 0;
+}

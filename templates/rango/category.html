@@ -9,55 +9,65 @@
     {% endif %}
 {% endblock %}
 
+{% block sheet_block %}
+<link rel="stylesheet" href="{%static 'style/category.css' %}">
+{% endblock %}
+
 {% block body_block %}
     {% if category %}
-    <h1>{{ category.name }}</h1>
+    <section class="content-head">
+        <h1>{{ category.name }}</h1>
+    </section>
     {% if pages %}
-    <ul>
+    <ul class="list">
         {% for page in pages %}
         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
         {% endfor %}
     </ul>
     {% else %}
-    <strong>No pages currently in category.</strong>
+    <strong class="placeholder">No pages currently in category.</strong>
     {% endif %}
 
     {% if user.is_authenticated %}
-    <a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />
+    <a href="{% url 'rango:add_page' category.slug %}" class="button button-green">Add Page</a> <br />
     {% endif %}
     {% else %}
-        The specified category does not exist.
+        <p class="placeholder">The specified category does not exist.</p>
     {% endif %}
     <div>
         <div>
             <form id="comment_form" method="post" action="{% url 'rango:add_comment' category.slug %}">
                 {% csrf_token %}
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                {% endfor %}
+                <div class="fieldWrapper">
+                    {{ form.content.errors }}
+                    <label for="{{ form.content.id_for_content }}"><b>Comment:</b></label>
+                    {{ form.content }}
+                    <button id="commentCommit" type="submit" class="button button-blue" style="margin-top: 0;">Submit</button>
+                </div>
                 <!-- <input type="textarea" name="content" value=""  cols="50" rows="5"/> -->
-                <input id="commentCommit" type="submit" value="submit" />
             </form>
         </div>
         {% if comments %}
-        <ul>
+        <ul class="comment-ul">
             {% for comment in comments %}
-            <li>
+            <li class="comment-li">
                 <p>
+                    {% if pic_exist %}
                     <img src="{{ MEDIA_URL }}profile_images/{{ comment.username }}.jpg"" height="30" width="30" alt="Picture of user">
-                    <span>{{ comment.username }}</span>
-                    <span>{{ comment.timesmp }}</span>
+                    {% else %}
+                    <img src="{{ MEDIA_URL }}profile_images/UnknownUser.jpg"" height="30" width="30" alt="Picture of user">
+                    {% endif %}
+                    <span class="username">{{ comment.username }}</span>
+                    <span class="timesmp">{{ comment.timesmp }}</span>
                 </p>
-                <div>
+                <div class="content">
                     <p>{{ comment.content }}</p>
                 </div>
             </li>
             {% endfor %}
         </ul>
         {% else %}
-            The comment does not exist.
+            <p class="placeholder">The comment does not exist.</p>
         {% endif %}
     </div>
 {% endblock %}

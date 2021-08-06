@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.conf import settings
+from pathlib import Path
 
 
 def index(request):
@@ -37,7 +38,7 @@ def about(request):
 
 def show_category(request, category_name_slug):
     context_dict = {}
-    username = None
+    username = request.user.username
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category)
@@ -48,11 +49,14 @@ def show_category(request, category_name_slug):
         # comment form
         form = CommentForm()
         context_dict['form'] = form
+        path = Path(settings.MEDIA_ROOT+'/profile_images/'+username+'.jpg')
+        context_dict['pic_exist'] = path.exists()
 
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
         context_dict['comments'] = None
+        context_dict['pic_exist'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
 

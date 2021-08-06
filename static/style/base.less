@@ -1,0 +1,121 @@
+@blkColor: #555;
+@whtColor: #fafafa;
+@realBlk: #111;
+@realWht: #fefefe;
+@blueBtn: #047aff;
+@greenBtn: #34c2af;
+@greyColor: #ebecf0;
+@darkGrey: #aaa;
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:@whtColor; color:@blkColor; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; }
+a { color:@blkColor; text-decoration:none; }
+a:hover { text-decoration:none; cursor: pointer;}
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+html {overflow-y: scroll;} 
+
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
+
+input {
+  display: block;
+  padding: 5px;
+  width: 50%;
+  border-width: 1px;
+  border-color: @darkGrey;
+  border-radius: 3px;
+  text-indent: 3px;
+}
+label {
+  padding: 5px;
+}
+
+//
+.main {
+  width: 100%;
+  height: 100%;
+}
+// header
+.header{
+  position: fixed;
+  width: 100%;
+  max-width: 1260px;
+  min-width: 755px;
+  background-color: @blkColor;
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 100;
+  li {
+    display: inline-block;
+    margin: 0;
+    padding: 10px;
+  }
+  li:hover {
+    background-color: @realBlk;
+    margin: 0;
+  }
+  a {color: #efefef;}
+}
+
+// main
+.app {
+  padding-top: 36px;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  >aside {
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    padding: 10px;
+    background: #fcfcfc;
+    border-right: 1px solid @darkGrey;
+    box-sizing: border-box;
+    li {
+      padding: 10px;
+    }
+  }
+  >article {
+    white-space: nowrap;
+    margin-left: 200px;
+    padding: 10px;
+  }
+
+}
+.button {
+  margin-top: 20px;
+  padding: 8px 10px 10px;
+  border: none;
+  border-radius: 3px;
+  color: @realWht;
+  vertical-align: top;
+}
+.button-blue {
+  background-color: @blueBtn;
+}
+.button-green {
+  background-color: @greenBtn;
+}
+.content-head {
+  padding: 20px 0px;
+  background-color: @greyColor;
+  h1 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+}
+
+.fieldWrapper {
+  label {
+    display: block;
+  }
+}
+.placeholder {
+  padding: 50px 0;
+  display: block;
+}
