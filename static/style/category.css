@@ -16,10 +16,15 @@
 .comment-li .content {
   padding: 10px 0 0 40px;
   box-sizing: border-box;
+  width: 100%;
 }
 .comment-li .content > p {
   padding: 10px;
+  min-width: 100px;
+  white-space: normal;
   border: 1px solid #555;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .list {
   margin: 10px 0 0 20px;
@@ -38,13 +43,6 @@
 #user-form textarea {
   width: 70%;
 }
-.content {
-  width: 100%;
-}
-.content > p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
 .inline-top {
   display: inline;
   margin-top: 0;
@@ -57,4 +55,25 @@
 }
 .content-head button {
   margin-top: 0;
+  vertical-align: baseline;
+}
+.list-result {
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #fff;
+  width: 70%;
+  box-sizing: border-box;
+}
+.list_group-item {
+  padding: 10px 0;
+  border-bottom: 1px dotted #555;
+}
+.list_group-item a:hover {
+  text-decoration: underline;
+}
+.list-group-item-heading {
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
 }

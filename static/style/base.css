@@ -182,7 +182,7 @@ label {
   display: block;
 }
 .placeholder {
-  padding: 50px 0;
+  padding: 50px 0 0 20px;
   display: block;
 }
 .sidebar-sticky li:hover {
