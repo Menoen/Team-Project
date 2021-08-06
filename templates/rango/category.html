@@ -20,7 +20,7 @@
         <div>
             <strong id="like_count">{{ category.likes }}</strong> people like this category
             {% if user.is_authenticated %}
-            <button id="likes" data-catid="{{category.catname}}" class="button button-blue" type="button">
+            <button id="likes" data-catid="{{category.id}}" class="button button-blue" type="button">
                 LIKE!
             </button>
             {% endif %}

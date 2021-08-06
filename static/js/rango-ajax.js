@@ -12,11 +12,15 @@ $(document).ready(function() {
     });
     // add likes
     $('#likes').click(function(){
-        var catname;
-        catname = $(this).attr("data-catname");
-        $.get('/rango/like/', {category_catname: catname}, function(data){
+        var catid;
+        catid = $(this).attr("data-catid");
+        $.get('/rango/like/', {category_id: catid}, function(data){
             $('#like_count').html(data);
             $('#likes').hide();
         });
     });
+    
+    $("#likes").click(function(){
+        $('#likes').hide();
+    })
 });
